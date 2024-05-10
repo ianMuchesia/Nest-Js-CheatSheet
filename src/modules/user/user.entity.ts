@@ -1,4 +1,5 @@
 //user.entity.ts
+import { Exclude } from 'class-transformer';
 import { IsDate, IsEmail, Min } from 'class-validator';
 import * as moment from 'moment';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
@@ -17,6 +18,7 @@ export class User {
 
   @Column()
   @Min(0)
+  @Exclude()
   password: string;
 
   @Column({
