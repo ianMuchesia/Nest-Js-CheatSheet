@@ -35,7 +35,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  public async login(@Req() req: IRequestWithUser, @Res() res: Response) {
+  public async login(@Req() req: IRequestWithUser) {
     const { user } = req;
     const payload: IPayloadJwt = {
       userId: user.id,
@@ -44,18 +44,18 @@ export class AuthController {
 
   
     const cookie = this.authService.getCookiesWithToken(payload);
-    res.setHeader('Set-Cookie', cookie);
+    req.res.setHeader('Set-Cookie', cookie);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = user;
-    return res.send(rest);
+   
+    return user;
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
   public getAuthenticatedUser(@Req() req: IRequestWithUser) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = req.user;
-    return rest;
+    
+    return req.user;
   }
 
   @Post('logout')
