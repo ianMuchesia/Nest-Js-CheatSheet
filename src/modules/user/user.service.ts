@@ -27,4 +27,12 @@ export class UserService{
         await this.userRepository.save(user);
         return user;
       }
+
+      public async saveToken(userDto: RegisterUserDto, currentHashedRefreshToken:string|null): Promise<User> {
+        const user = await this.userRepository.save({
+          ...userDto,
+          currentHashedRefreshToken: currentHashedRefreshToken,
+        });
+        return user;
+      }
 }

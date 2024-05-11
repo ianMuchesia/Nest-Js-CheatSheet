@@ -39,4 +39,12 @@ export class User {
   @IsDate()
   updatedAt: Date;
 
+
+  //to store the hashed refresh token
+  @Column({
+    nullable: true,
+  })
+  @Exclude()
+  public currentHashedRefreshToken?: string;
+
 }
